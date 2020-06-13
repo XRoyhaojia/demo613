@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>demo</title>
+</head>
+
+<body>
+    <button id="all">全选</button>
+    <button id="none">全不选</button>
+    <button id="reverse">反选</button>
+    <!-- <input type="checkbox">
+    <div id="ru">
+        <ul>
+
+        </ul>
+    </div> -->
+
+</body>
+
+<script>
+    // var div = document.querySelector('ul')
+
+    // function init() {
+    //     var str = prompt('请录入选择框名称，录入-2退出录入');
+
+    //     if (str === -2) {
+    //         return
+    //     } else {
+    //         shengcheng(str);
+
+    //     }
+
+
+    // }
+
+    // function shengcheng(value) {
+    //     var li = document.createElement('li')
+    //     li.innerHTML = '<input type="checkbox" > ' + value;
+    //     div.appendChild(li)
+
+    // }
+    // init()
+    // init()
+
+
+
+
+
+    function addEl(parent, text) {
+        const div = document.createElement('div');
+        const input = document.createElement('input');
+        const label = document.createElement('label');
+        input.setAttribute('type', 'checkbox');
+        input.setAttribute('name', text);
+        input.setAttribute('id', text + '' + Date.now());
+        label.innerHTML = text;
+        div.appendChild(input);
+        div.appendChild(label);
+        parent.appendChild(div);
+        return {
+            div,
+            input
+        };
+    }
+    class CheckboxManager {
+        constructor() {
+            this.list = []
+        }
+        add(el) {
+            this.list.push(el);
+        }
+        selectAll() {
+            this.list.forEach(data => {
+                const {
+                    input
+                } = data;
+                console.log(input);
+                input.checked = true
+            })
+        }
+        selectNone() {
+            this.list.forEach(data => {
+                const {
+                    input
+                } = data;
+                console.log(input);
+                input.checked = false
+            })
+        }
+        selectReverse() {
+            this.list.forEach(data => {
+                const {
+                    input
+                } = data;
+                console.log(input);
+
+                input.checked = !input.checked
+            })
+        }
+    }
+
+    function main() {
+        var inputStr = ''
+        var bodyEl = document.querySelector('body');
+        var allBtn = document.querySelector('#all');
+        var noneBtn = document.querySelector('#none');
+        var reverseBtn = document.querySelector('#reverse');
+        var checkboxManager = new CheckboxManager()
+        while (inputStr != -2) {
+            inputStr = prompt('请录入选a择框名称，录入-2退出')
+            if (inputStr != -2) {
+                const data = addEl(bodyEl, inputStr);
+                checkboxManager.add(data);
+            }
+        }
+        allBtn.addEventListener('click', () => {
+            checkboxManager.selectAll()
+        })
+        noneBtn.addEventListener('click', () => {
+            checkboxManager.selectNone();
+        })
+        reverseBtn.addEventListener('click', () => {
+            checkboxManager.selectReverse();
+        })
+    }
+    main()
+</script>
+
+</html>
